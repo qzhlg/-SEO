@@ -26,18 +26,30 @@
                                 <p class="des">{{slide.des}}</p>
                                 <p class="bot">
                                     <span class="price">￥{{slide.price}}</span>
-                                    <span>
-                                    <button>-</button>
+                                    <span class="btn">
+                                    <button @click="reduce(slide.id)">-</button>
                                     <button>{{slide.num}}</button>
-                                    <button>+</button>
+                                    <button @click="add(slide.id)">+</button>
                                     </span>
-                                </p>
+                             </p>
                         </li>
                     </ul>
                 </div>
             </div>
                 
         </main>
+        <div class="foot">
+            <span>
+                <input type="checkbox">全选
+            </span>
+            <span v-html="money">
+            </span>
+                            总价
+
+            <span>
+                总个数
+            </span>
+        </div>
     </div>
 </template>
 <script>
@@ -45,11 +57,35 @@ import {mapState,mapMutations} from 'vuex'
 export default { 
     computed:{
         ...mapState({
-            listdata:store=>store.listdata
+            listdata:store=>store.listdata,
+            money:store=>store.money
         })
     },
     mounted(){
         this.$store.dispatch('getshopdata')
+        
+    },
+    methods:{
+        reduce(id){
+           let ind=this.listdata.findIndex(item =>item.id===id)
+           if(this.listdata[ind].num<=0)return
+           this.listdata[ind].num--
+           this.$store.commit('reduce',{
+               ind,
+               num:this.listdata[ind].num
+           })
+           this.$store.commit('reckon')
+          
+        },
+        add(id){
+            let ind=this.listdata.findIndex(item =>item.id===id)
+            this.listdata[ind].num++
+            this.$store.commit('add',{
+                ind,
+                num:this.listdata[ind].num
+            })
+             this.$store.commit('reckon')
+        }
     }   
 }
 </script>
@@ -60,6 +96,7 @@ export default {
     height: calc(1.8rem*2);
     background: -webkit-linear-gradient(right, #FF5000 0%, #FF8400 100%);
     color: #fff;
+    
 }
 .left{
     float: left;
@@ -76,6 +113,7 @@ h3{
 }
 .main{
     background: #e5e5e5;
+
 }
 .box{
     height: calc(2rem*2);
@@ -92,5 +130,16 @@ h3{
 .list{
     display: flex;
 }
-
+.foot{
+    width: 100%;
+    height: calc(.5rem*2);
+    background: #ccc;
+    position: absolute;
+    bottom: 7%;
+    left: 0;
+    display: flex;
+}
+span{
+    flex: 1;
+}
 </style>
