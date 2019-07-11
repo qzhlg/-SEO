@@ -9,7 +9,7 @@
                 管理
             </div>
         </div>
-        <main class="mains">
+        <main class="main">
             <div class="box" v-for="slide in listdata" :key="slide.id">
                 <div class="topbox">
                     <input type="checkbox" name="" id="">
@@ -50,11 +50,16 @@
               <!-- {{total}}  总个数 -->
             </span>
         </div>
+        <vfoot/>
     </div>
 </template>
 <script>
+import vfoot from '../../container/foot'
 import {mapState,mapMutations} from 'vuex'
 export default { 
+    components:{
+        vfoot
+    },
     computed:{
         ...mapState({
             listdata:store=>store.listdata,
@@ -96,7 +101,7 @@ export default {
     height: calc(1.8rem*2);
     background: -webkit-linear-gradient(right, #FF5000 0%, #FF8400 100%);
     color: #fff;
-    
+    border-radius: 0 0 20px 20px;
 }
 .left{
     float: left;
@@ -111,9 +116,9 @@ h3{
      padding: 20px;
      font-size: 15px;
 }
-.mains{
+.main{
     background: #e5e5e5;
-
+    position: relative;
 }
 .box{
     height: calc(2rem*2);
@@ -135,7 +140,7 @@ h3{
     height: calc(.5rem*2);
     background: #ccc;
     position: absolute;
-    bottom: 7%;
+    bottom:50px;
     left: 0;
     display: flex;
 }

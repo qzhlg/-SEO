@@ -5,6 +5,9 @@
           <span class="title">淘宝</span>
           <input type="text" name="" id="" class="ipt">
         </header>
+        <main class="main">
+
+     
       <div class="banner swiper-container">
         <swiper :options="swiperOption">
             <swiper-slide v-for="item in slidecon" :key="item.id">
@@ -23,22 +26,26 @@
         </div>
 
       <vcontent :content="content"></vcontent>
-    <BackTop :height="100" :bottom="200">
+     <BackTop :height="100" :bottom="200">
         <div class="top">返回顶端</div>
     </BackTop>
+       </main>
+    <vfoot></vfoot>
     </div>
     
 </template>
 
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import vfoot from '../../container/foot'
 import axios from 'axios'
 import vcontent from './vcontent'
 export default {
     components: {
     swiper,
     swiperSlide,
-    vcontent
+    vcontent,
+    vfoot
   },
   data(){
     return{
@@ -137,12 +144,13 @@ export default {
 .msg{
   text-align:center;
 }
-  .top{
+ .top{
         padding: 10px;
         /* background: rgba(0, 153, 229, .7); */
         background: red;
         color: #fff;
         text-align: center;
         border-radius: 2px;
+     
     }
 </style>
