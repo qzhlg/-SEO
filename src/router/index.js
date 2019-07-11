@@ -34,7 +34,19 @@ export default new Router({
     },{
       path:'/login',
       name:'login',
-      component:()=>import ('../components/login')
+      component:()=>import ('../components/login'),
+      beforeEnter:(to,from,next)=>{
+        if(sessionStorage.token){
+          next()
+        }else{
+          window.location.href='/mine'
+        }
+      }
+    },
+    {
+      path:"/home/detail",
+      name:'detail',
+      component:()=>import ('../components/home/detail')
     }
   ]
 })

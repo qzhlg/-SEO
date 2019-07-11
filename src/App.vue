@@ -15,7 +15,7 @@
                     <router-link to="/shopcar">购物车</router-link>
                 </li>
                 <li>
-                    <router-link to="/mine">我的</router-link>
+                    <router-link to="/login">我的</router-link>
                 </li>
                 <li>
                     <router-link to="/more">更多</router-link>

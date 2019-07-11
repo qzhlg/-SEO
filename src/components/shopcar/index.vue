@@ -9,7 +9,7 @@
                 管理
             </div>
         </div>
-        <main class="main">
+        <main class="mains">
             <div class="box" v-for="slide in listdata" :key="slide.id">
                 <div class="topbox">
                     <input type="checkbox" name="" id="">
@@ -42,12 +42,12 @@
             <span>
                 <input type="checkbox">全选
             </span>
-            <span v-html="money">
-            </span>
-                            总价
-
             <span>
-                总个数
+                {{money}}
+            </span>
+             总价
+            <span>
+              <!-- {{total}}  总个数 -->
             </span>
         </div>
     </div>
@@ -58,35 +58,35 @@ export default {
     computed:{
         ...mapState({
             listdata:store=>store.listdata,
-            money:store=>store.money
+            money:store=>store.money,
+         
         })
     },
     mounted(){
         this.$store.dispatch('getshopdata')
-        
     },
     methods:{
         reduce(id){
            let ind=this.listdata.findIndex(item =>item.id===id)
-           if(this.listdata[ind].num<=0)return
-           this.listdata[ind].num--
+           if(this.listdata[ind].num<=0) return
+                this.listdata[ind].num--
            this.$store.commit('reduce',{
                ind,
                num:this.listdata[ind].num
            })
            this.$store.commit('reckon')
-          
+         
         },
-        add(id){
+        add(id){    
             let ind=this.listdata.findIndex(item =>item.id===id)
-            this.listdata[ind].num++
+           this.listdata[ind].num++
             this.$store.commit('add',{
                 ind,
                 num:this.listdata[ind].num
             })
-             this.$store.commit('reckon')
+            this.$store.commit('reckon')
         }
-    }   
+    },
 }
 </script>
 
@@ -111,7 +111,7 @@ h3{
      padding: 20px;
      font-size: 15px;
 }
-.main{
+.mains{
     background: #e5e5e5;
 
 }

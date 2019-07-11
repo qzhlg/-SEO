@@ -9,10 +9,19 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
-
+const mysql =require("mysql")
+const url=require('url')
+const qs=require('querystring')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password : '123321',
+  database : 'zhl'
+});
 
+connection.connect();
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
@@ -60,6 +69,55 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           data:shopdata
         })
       })
+      app.get("/gethomelist",(req,res)=>{
+        let homedata=require("../mock/homedata.json")
+        res.json({
+          code:1,
+          msg:"success!",
+          data:homedata
+        })
+      })
+      app.get('/login',(req,res)=>{
+        let ourl=url.parse(req.url)
+        let oquery=qs.parse(ourl.query)
+        let {
+          username,
+          password
+        }=oquery
+        console.log(oquery)
+        connection.query(`select * from user where username='${username}' and password='${password}'` , function (error, results, ) {
+        if (error) throw error;
+        // console.log('The solution is: ', results[0].solution);
+        if(results.length){
+          res.statusCode=200
+          res.json({
+            code:1,
+            info:"success",
+            token:{
+              iss:"my-SEO",
+              time:new Date().getTime(),
+              uid:results[0].uid
+            }
+          })
+        }else{
+          res.statusCode=401,
+          res.json({
+            code:0,
+            info:"failure"
+          })
+        }
+       
+      }); 
+      })
+      app.get('/getdetail',(req,res)=>{
+        let detail=require('../mock/detaildata')
+        res.json({
+          code:1,
+          msg:"success!",
+          data:detail
+        })
+      })
+     
     }
   },
   plugins: [

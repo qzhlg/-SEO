@@ -13,22 +13,19 @@ const store=new Vuex.Store({
             state.listdata=payload
         },
         reduce(state,payload){
-            // let {ind,num}=payload
+            let {ind,num}=payload
             let data=[...state.listdata]
-            // state.money=payload
         },
         add(state,payload){
             let {ind,num}=payload
-            
         },
-        reckon(state,payload){
+        reckon(state){
            let money=state.listdata.reduce((pre,cur)=>{
                 return pre+=cur.num*cur.price
             },0)
-            state.money=payload
-            console.log(payload)
-        }
-        
+             state.money=money
+        },
+      
     },
     actions:{
         getshopdata(){
@@ -36,7 +33,6 @@ const store=new Vuex.Store({
                 store.commit("setshopdata",res.data.data)
             })
         }
-        
     }
 })
 export default store

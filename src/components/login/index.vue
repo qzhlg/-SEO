@@ -1,7 +1,7 @@
 <template>
        <Form ref="formInline" :model="formInline" :rules="ruleInline" block>
-        <FormItem prop="user">
-            <Input type="text" v-model="formInline.user" placeholder="Username">
+        <FormItem prop="username">
+            <Input type="text" v-model="formInline.username" placeholder="Username">
                 <Icon type="ios-person-outline" slot="prepend"></Icon>
             </Input>
         </FormItem>
@@ -17,15 +17,28 @@
 </template>
 
 <script>
+import axios from 'axios';
+import {
+    Form,
+    FormItem,
+    Input,
+    Icon
+} from 'iview'
 export default {
+    components:{
+          Form,
+    FormItem,
+    Input,
+    Icon
+    },
  data () {
             return {
                 formInline: {
-                    user: '',
+                    username: '',
                     password: ''
                 },
                 ruleInline: {
-                    user: [
+                    username: [
                         { required: true, message: 'Please fill in the user name', trigger: 'blur' }
                     ],
                     password: [
@@ -39,7 +52,25 @@ export default {
             handleSubmit(name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        this.$Message.success('Success!');
+                        const url='/login'
+                        const opt={
+                            username:this.formInline.username,
+                            password:this.formInline.password
+                        }
+                        axios.get('/login',{
+                            params:opt
+                        }).then(res =>{
+                            this.$Message.success('Success!');
+                            console.log(res.data.token.time)
+                            if(res.data.code===1){
+                                 sessionStorage.setItem("token",res.data.token.time)
+                            this.$router.history.push('/mine')
+                            }
+                           
+                        }).catch(error=>{
+                            this.$$Message.error("服务器拒绝了你的请求")
+                        })
+                        
                     } else {
                         this.$Message.error('Fail!');
                     }

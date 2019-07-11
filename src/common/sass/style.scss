@@ -21,9 +21,10 @@ html,body{
     display: flex;
     flex-direction: column;
 }
+
 .header{
-    height: calc(.5rem*2);
-    background: lavender;
+    height: calc(.4rem*2);
+
     display: flex;
     background: #FF852A;
 }
@@ -31,7 +32,7 @@ html,body{
     font-size: 18px;
     color: #fff;
     text-align: center;
-    line-height: calc(.5rem*2);
+    line-height: calc(.4rem*2);
     flex: 2;
 }
 .ipt{
@@ -39,7 +40,7 @@ html,body{
     border: 0;
     width: 80%;
     height: 60%;
-    margin: auto;
+    margin: auto 10px;
     border-radius: 10px;
 }
 .main{
@@ -57,8 +58,6 @@ html,body{
 .footer{
     height: calc(.5rem*2);
     border-top: 1px #ccc solid;
-    
-  
 }
 .lists{
     display: flex;
@@ -68,3 +67,26 @@ html,body{
     text-align: center;
     line-height: calc(.5rem*2)
    }
+   .iconbox{
+    height: calc(1.8rem*2);
+  
+}
+.iconlist{
+    float: left;
+    width: 20%;
+}
+.vertical{
+    height: calc(.8rem*2);
+    margin: 10px auto;
+}
+.ver-box{
+    display: flex;
+    
+}
+.ver-box li:nth-child(1){
+    flex: 2;
+    
+}
+.ver-box li:nth-child(2){
+    flex: 8;
+}
