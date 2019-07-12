@@ -13,7 +13,7 @@
         </swiper>
          </div>
       </div>
-      
+
    </div>
 </template>
 

@@ -9,19 +9,26 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
-const mysql =require("mysql")
+
 const url=require('url')
 const qs=require('querystring')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
+const mysql =require("mysql")
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password : '123321',
-  database : 'zhl'
-});
-
-connection.connect();
+    host: 'localhost',
+    user: 'root',
+    password : '123321',
+    database : 'zhl'
+  });
+  
+  connection.connect((error)=>{
+    if(error){
+      console.log("数据库连接失败",error)
+    }else{
+      console.log("数据库连接成功")
+    }
+  });
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })

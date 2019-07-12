@@ -7,7 +7,7 @@ import iview from 'iview'
 import store from './store'
 import 'swiper/dist/css/swiper.css'
 import 'iview/dist/styles/iview.css'
-import axios from 'axios'
+import axios from './utils/request'
 Vue.config.productionTip = false
 Vue.prototype.$axios=axios
 window.$axios=axios

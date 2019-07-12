@@ -3,11 +3,9 @@
     
        <header class="header">
           <span class="title">淘宝</span>
-          <input type="text" name="" id="" class="ipt">
+          <input type="text" name="" id="" class="ipt" ref="ipt">
         </header>
         <main class="main">
-
-     
       <div class="banner swiper-container">
         <swiper :options="swiperOption">
             <swiper-slide v-for="item in slidecon" :key="item.id">
@@ -114,6 +112,7 @@ export default {
   mounted(){
     this.getbanner()
     this.gethomedata()
+    this.searchMethod()
   },
   methods:{
     getbanner(){
@@ -127,7 +126,20 @@ export default {
       this.content=res.data.data
       
     })
+  },
+  searchMethod(){
+    this.$refs.ipt.oninput=()=>{
+      let value=this.$refs.ipt.value
+      if(value.length){
+        this.content.forEach((item,index)=>{
+         
+          let flag=item.innerHTML.includes(value)
+          console.log(flag)
+        })
+      }
+    }
   }
+
   }
 
 }
